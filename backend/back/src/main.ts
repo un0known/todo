@@ -1,6 +1,7 @@
 import { setServers } from 'node:dns/promises';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
+import 'dotenv/config'
 
 setServers(['1.1.1.1', '8.8.8.8']);
 
