@@ -188,6 +188,72 @@ h1 {
   gap: 5px;
 }
 
+.toolbar-browse {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.todo-search input {
+  width: min(190px, 24vw);
+  min-width: 120px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 0 10px;
+  outline: none;
+  background: white;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.todo-search input:focus {
+  border-color: var(--green);
+}
+
+.todo-search input::placeholder {
+  color: #a3aaa8;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.toolbar-actions,
+.page-size-control {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-actions {
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.page-size-control {
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.page-size-control select {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 8px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+}
+
 .filter,
 .clear-button,
 .task-actions button,
@@ -218,6 +284,53 @@ h1 {
 
 .task-list {
   border-top: 1px solid var(--line);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 0 4px;
+}
+
+.pagination-pages,
+.pagination-page-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pagination-button,
+.pagination-page {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pagination-button {
+  padding: 0 10px;
+}
+
+.pagination-page.active {
+  border-color: var(--green);
+  background: var(--green);
+  color: white;
+}
+
+.pagination-button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.pagination-ellipsis {
+  padding: 0 2px;
+  color: var(--muted);
 }
 
 .task {
@@ -430,8 +543,22 @@ h1 {
     padding: 14px 0;
   }
 
+  .toolbar-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .filters {
     flex-wrap: wrap;
+  }
+
+  .toolbar-browse {
+    flex-wrap: wrap;
+  }
+
+  .todo-search input {
+    width: 100%;
+    min-width: 0;
   }
 
   .clear-button {

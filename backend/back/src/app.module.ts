@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { TodoModule } from './todo/todo.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ListModule } from './list/list.module.js';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { MongooseModule } from '@nestjs/mongoose';
         return { uri };
       },
     }),
-    TodoModule
+    TodoModule,
+    ListModule
   ],
   // controllers: [AppController],
   // providers: [AppService],

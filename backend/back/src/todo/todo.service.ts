@@ -13,13 +13,21 @@ import { CreateTodoDto } from './dto/create-todo.dto.js';
 import { UpdateTodoDto } from './dto/update-todo.dto.js';
 import { DbConnect } from '../dbConnect.js';
 
+
+interface querytype {
+  search: string;
+  limit: number;
+  page: number
+  completed: string;
+}
+
 @Injectable()
 export class TodoService implements OnModuleInit {
   constructor(
     @InjectModel(Todo.name)
     private readonly todoModel: Model<Todo>,
     private readonly dbConnect: DbConnect,
-  ) {}
+  ) { }
 
   async onModuleInit(): Promise<void> {
     await this.dbConnect.check();
@@ -40,8 +48,24 @@ export class TodoService implements OnModuleInit {
     return todo;
   }
 
-  async findAll() {
-    return this.todoModel.find().sort({ createdAt: -1}).exec();
+  async findAll({ search, limit, page, completed }: querytype) {
+    const skip = (page - 1) * limit;
+
+    const filter: any = {}
+
+    if (search) {
+      filter.title = {
+        $regex: search,
+        $options: 'i',
+      };
+      
+
+      console.log("filter", filter);
+
+      return await this.todoModel.find(filter).limit(limit).skip(skip).exec()
+    } else {
+      return this.todoModel.find().sort({ createdAt: -1 }).exec();
+    }
   }
 
   async findOne(id: string) {
@@ -86,6 +110,23 @@ export class TodoService implements OnModuleInit {
 
     return todo;
   }
+  // find by title
+  async findByTitle(title: string) {
+    return this.todoModel.find({
+      title: {
+        $regex: title,
+        options: "i"
+      }
+    }).exec();
+  }
+
+  // search query
+  // async searchByTitle(search: string) {
+  //   return this.todoModel.find({
+  //     title: { $regex: search, $options: 'i' }
+  //   }).exec()
+  // }
+
 
   async update(id: string, updateTodoDto: UpdateTodoDto) {
     if (!Types.ObjectId.isValid(id)) {
@@ -144,4 +185,7 @@ export class TodoService implements OnModuleInit {
       id: todo._id.toString(),
     };
   }
+
+
+
 }
